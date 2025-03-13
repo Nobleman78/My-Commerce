@@ -1,18 +1,77 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Shopcontex } from '../Context/Contex';
-import { assets } from '../assets/assets';
 import ProductItem from '../Components/ProductItem';
 
 const Collection = () => {
     const { products } = useContext(Shopcontex)
     const [showFilter, setShowFilter] = useState(false)
-    const [filterProducts,setFilterProducts] = useState([])
+    const [filterProducts, setFilterProducts] = useState([])
+    const [category, setCategory] = useState([])
+    const [subCategory, setSubCategory] = useState([])
+    const [sortType,setSortType] = useState([]);
+
+
+    const toggleCategory = (e) => {
+        if (category.includes(e.target.value)) {
+            setCategory(prev => prev.filter(item => item !== e.target.value))
+        }
+        else {
+            setCategory(prev => ([...prev, e.target.value]))
+
+        }
+
+    }
+
+    const toggleSubCatagory = (e) => {
+        if (subCategory.includes(e.target.value)) {
+            setSubCategory(prev => prev.filter(item => item !== e.target.value))
+        }
+        else {
+            setSubCategory(prev => [...prev, e.target.value])
+        }
+    }
+
+
+    const applyFilter = ()=>{
+        let productsCopy = products.slice();
+        if(category.length>0){
+            productsCopy = productsCopy.filter(item=>category.includes(item.category))
+        }
+        if(subCategory.length>0){
+            productsCopy = productsCopy.filter(item=>subCategory.includes(item.subCategory))
+        }
+        setFilterProducts(productsCopy)
+    }
+    const sortItem=()=>{
+        let fpcopy = filterProducts.slice();
+        switch(sortType){
+            case 'low-high':
+                setFilterProducts(fpcopy.sort((a,b)=>(a.price - b.price)))
+                break;
+            case 'high-low':
+                setFilterProducts(fpcopy.sort((a,b)=>(b.price - a.price)))
+                break;
+            default:
+                applyFilter();
+                break;
+
+        }
+    }
 
 
     useEffect(()=>{
-        setFilterProducts(products)
+        applyFilter();
 
-    },[])
+    },[category,subCategory])
+
+    useEffect(()=>{
+        sortItem()
+    },[sortType])
+
+    // useEffect(() => {
+    //     setFilterProducts(products)
+
+    // }, [])
 
     return (
         <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
@@ -24,21 +83,21 @@ const Collection = () => {
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
                     <p className='mb-3 text-sm font-medium'>Categories</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-                        <div className='flex  gap-2'>
-                            <input type="checkbox" value={'Men'} />
-                            <p>Men</p>
+                        <p className='flex  gap-2'>
+                            <input type="checkbox" value={'Men'} onChange={toggleCategory} />
+                            Men
 
-                        </div>
-                        <div className='flex gap-2'>
-                            <input type="checkbox" value={'Women'} />
-                            <p>Women</p>
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value={'Women'} onChange={toggleCategory} />
+                            Women
 
-                        </div>
-                        <div className='flex gap-2'>
-                            <input type="checkbox" value={'Kids'} />
-                            <p>Kids</p>
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value={'Kids'} onChange={toggleCategory} />
+                            Kids
 
-                        </div>
+                        </p>
                     </div>
                 </div>
 
@@ -46,21 +105,21 @@ const Collection = () => {
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
                     <p className='mb-3 text-sm font-medium'>Type</p>
                     <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
-                        <div className='flex  gap-2'>
-                            <input type="checkbox" value={'Men'} />
-                            <p>Topwear</p>
+                        <p className='flex  gap-2'>
+                            <input type="checkbox" value={'Topwear'} onChange={toggleSubCatagory} />
+                            Topwear
 
-                        </div>
-                        <div className='flex gap-2'>
-                            <input type="checkbox" value={'Women'} />
-                            <p>Bottomwear</p>
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value={'Bottomwear'} onChange={toggleSubCatagory} />
+                            Bottomwear
 
-                        </div>
-                        <div className='flex gap-2'>
-                            <input type="checkbox" value={'Kids'} />
-                            <p>Winterwear</p>
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value={'Winterwear'} onChange={toggleSubCatagory} />
+                            Winterwear
 
-                        </div>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -73,7 +132,7 @@ const Collection = () => {
                         <p className='w-8 sm:w-11 h-[1px] bg-black'></p>
                     </div>
                     {/* Product Sortlist */}
-                    <select className='border-2 outline-none shadow-none py-2 rounded  text-sm px-2'>
+                    <select onChange={(e)=>setSortType(e.target.value)} className='border-2 outline-none shadow-none py-2 rounded  text-sm px-2'>
                         <option value="relavent">Sort By : Relavent</option>
                         <option value="low-high">Sort By : Low To High</option>
                         <option value="high-low">Sort By : High To Low</option>
@@ -82,7 +141,7 @@ const Collection = () => {
                 </div>
                 <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6'>
                     {
-                        filterProducts.map((item,index)=>(
+                        filterProducts.map((item, index) => (
                             <ProductItem key={index} name={item.name} image={item.image} id={item._id} price={item.price}></ProductItem>
                         ))
                     }
