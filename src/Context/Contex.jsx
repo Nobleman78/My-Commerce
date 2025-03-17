@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 export const Shopcontex = createContext();
 
 const Contex = (props) => {
-    
+
     const currency = `$`;
     const deliveryFee = 10;
     const [search, setSearch] = useState('');
@@ -40,6 +40,7 @@ const Contex = (props) => {
                 try {
                     if (cartItems[items][item] > 0){
                         totalCount += cartItems[items][item]
+                        
                     }
 
                 }catch {
@@ -47,6 +48,7 @@ const Contex = (props) => {
                 }
             }
         }
+        
         return totalCount;
 
     }

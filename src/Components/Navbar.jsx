@@ -8,7 +8,7 @@ const Navbar = () => {
     const [visible, setVisible] = useState(false);
     const [menu, setMenu] = useState('menu')
     const {showSearch,setShowSearch,getCartCount} = useContext(Shopcontex)
-    console.log(getCartCount)
+    
 
 
     return (
