@@ -11,6 +11,9 @@ const Contex = (props) => {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({})
+
+
+    // Add to cart click Event handler
     const addToCart = async (itemId, size) => {
         if (!size) {
             toast.error('Please Select Product Size');
@@ -33,32 +36,55 @@ const Contex = (props) => {
 
 
     }
+
     const getCartCount = () => {
         let totalCount = 0;
         for (const items in cartItems) {
             for (const item in cartItems[items]) {
                 try {
-                    if (cartItems[items][item] > 0){
+                    if (cartItems[items][item] > 0) {
                         totalCount += cartItems[items][item]
-                        
+
                     }
 
-                }catch {
+                } catch {
 
                 }
             }
         }
-        
+
         return totalCount;
 
     }
-  
 
-   
+    const updateQuantiy = async (itemId, size, quantity) => {
+        let cartData = structuredClone(cartItems);
+        cartData[itemId][size] = quantity;
+        setCartItems(cartData);
+
+
+    }
+    const getCartAmount = () => {
+        let totalAmount = 0;
+        for (const items in cartItems) {
+            let itemInfo = products.find(item => item._id === items);
+            for (const item in cartItems[items]) {
+                try {
+                    if (cartItems[items][item] > 0) {
+                        totalAmount = totalAmount + itemInfo.price * cartItems[items][item]
+                    }
+                }
+                catch {
+
+                }
+            }
+            return totalAmount;
+        }
+    }
 
     const contextValue = {
         products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount
+        cartItems, addToCart, getCartCount, updateQuantiy,getCartAmount
     }
     return (
         <Shopcontex.Provider value={contextValue}>
