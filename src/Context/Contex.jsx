@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { products } from '../assets/assets';
 import { toast } from 'react-toastify';
 
@@ -48,6 +48,7 @@ const Contex = (props) => {
                     }
 
                 } catch {
+                    console.log('Nothing is here ...')
 
                 }
             }
@@ -75,6 +76,7 @@ const Contex = (props) => {
                     }
                 }
                 catch {
+                    console.log('Lol Nothing is here...Hahaha')
 
                 }
             }

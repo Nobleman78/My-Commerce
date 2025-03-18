@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Shopcontex } from '../Context/Contex';
 import { assets } from '../assets/assets';
 import TotalAmount from '../Components/TotalAmount';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const { currency, cartItems, products,updateQuantiy } = useContext(Shopcontex);
 
     const [cartData, setCartData] = useState([]);
+    const naviagte = useNavigate();
 
     useEffect(() => {
         const tempData = [];
@@ -28,7 +30,7 @@ const Cart = () => {
 
     return (
         <div className='border-t pt-14'>
-            <div className='text-2xl flex justify-center items-center gap-2'>
+            <div className='text-2xl flex  items-center gap-2'>
                 <p><span className='text-gray-600'>YOUR</span> CART</p>
                 <p className='w-8 sm:w-11 h-[1px] bg-black'></p>
 
@@ -62,11 +64,15 @@ const Cart = () => {
             <div className='flex justify-end my-20'>
                 <div className='w-full sm:w-[450px]'>
                     <TotalAmount/>
+                    <div className='w-full text-end'>
+                        <button onClick={()=>naviagte('/place-order')} className='bg-black cursor-pointer text-white text-sm my-8 px-8 py-3'>Proceed To Checkout</button>
+
+                    </div>
 
                 </div>
 
             </div>
-
+           
 
         </div>
     );
