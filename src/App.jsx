@@ -14,6 +14,7 @@ import Navbar from './Components/Navbar'
 import Footer from './Components/Footer'
 import Searchbar from './Components/Searchbar'
 import { ToastContainer } from 'react-toastify';
+import Myprofile from './Components/MyProfile/Myprofile'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/orders' element={<Order/>}/>
         <Route path='/collection' element={<Collection/>}/>
+        <Route path='/my-profile' element={<Myprofile/>}></Route>
       </Routes>
 
     <Footer/>

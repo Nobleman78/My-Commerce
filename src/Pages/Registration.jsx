@@ -39,7 +39,7 @@ const Registration = () => {
                         <input name='password' className="w-[100%] px-2 border outline-none shadow-none py-1 rounded" type="password" placeholder='Enter Your Password' />
                     </div>
                     <button className=" w-[100%] my-2 py-1 cursor-pointer bg-blue-700 text-white" >Sign Up</button>
-                    <div className="flex gap-2 mt-2">
+                    <div className="flex flex-col sm:flex-row text-center gap-2 mt-2">
                         <p>Already Have Account?</p>
                         <Link to='/login'><button className="cursor-pointer">Login </button></Link>
 

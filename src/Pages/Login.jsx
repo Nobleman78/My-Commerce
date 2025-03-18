@@ -102,7 +102,7 @@ const Login = () => {
                     </div>
                 </div>
                     <button className=" w-[100%] my-2 py-1 cursor-pointer bg-blue-700 text-white" >Sign in</button>
-                    <div className="flex gap-2 mt-2">
+                    <div className="flex flex-col sm:flex-row text-center  gap-2 mt-2">
                         <p>Doesn't Have Account?</p>
                         <Link to='/registration'><button className="cursor-pointer">Registration Here</button></Link>
                     </div>

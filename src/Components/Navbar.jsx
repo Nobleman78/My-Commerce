@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { assets } from '../assets/assets';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { ClickAwayListener } from '@mui/material';
 import { Shopcontex } from '../Context/Contex';
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
     const [menu, setMenu] = useState('menu')
     const {showSearch,setShowSearch,getCartCount} = useContext(Shopcontex)
@@ -42,7 +43,7 @@ const Navbar = () => {
                    <img className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
                     <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
                         <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                            <p className='cursor-pointer hover:text-black'>My Profile</p>
+                            <p onClick={()=>navigate('/my-profile')}  className='cursor-pointer hover:text-black'>My Profile</p>
                             <p className='cursor-pointer hover:text-black'>Orders</p>
                             <p className='cursor-pointer hover:text-black'>Logout</p>
                         </div>
@@ -66,6 +67,7 @@ const Navbar = () => {
                     <NavLink onClick={() => {setMenu('COLLECTION'),setVisible(false)}} className={menu === 'COLLECTION' ? ' bg-black text-white py-2 pl-6 border-b cursor-pointer':'py-2  pl-6 border-b cursor-pointer'} to='/collection'>COLLECTION</NavLink>
                     <NavLink onClick={() => {setMenu('ABOUT'),setVisible(false)}} className={menu === 'ABOUT' ? 'bg-black  text-white border-b py-2 cursor-pointer pl-6 ' : 'py-2 pl-6 border-b cursor-pointer'} to='/about'>ABOUT</NavLink>
                     <NavLink onClick={() => {setMenu('CONTACT'),setVisible(false)}} className={menu === 'CONTACT' ? 'py-2 pl-6 border-b cursor-pointer bg-black text-white' : 'py-2 pl-6 border-b cursor-pointer'} to='/contact'>CONTACT</NavLink>
+                    <NavLink onClick={() => {setMenu('LOGIN'),setVisible(false)}} className={menu === 'LOGIN' ? 'py-2 pl-6 border-b cursor-pointer bg-black text-white' : 'py-2 pl-6 border-b cursor-pointer'} to='/login'>LOGIN</NavLink>
                 </div>  
             </div>
         </div>
