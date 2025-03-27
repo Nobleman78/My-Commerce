@@ -6,13 +6,14 @@ import { Navigate, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
     const { currency, cartItems, products,updateQuantiy } = useContext(Shopcontex);
-
     const [cartData, setCartData] = useState([]);
     const naviagte = useNavigate();
+   
 
     useEffect(() => {
         const tempData = [];
         for (const items in cartItems) {
+            
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
                     tempData.push({

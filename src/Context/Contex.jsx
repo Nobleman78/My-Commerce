@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { products } from '../assets/assets';
 import { toast } from 'react-toastify';
 
@@ -11,6 +11,8 @@ const Contex = (props) => {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({})
+    console.log(cartItems);
+
 
 
     // Add to cart click Event handler
@@ -36,6 +38,7 @@ const Contex = (props) => {
 
 
     }
+
 
     const getCartCount = () => {
         let totalCount = 0;
@@ -66,27 +69,20 @@ const Contex = (props) => {
 
     }
     const getCartAmount = () => {
-        let totalAmount = 0;
-        for (const items in cartItems) {
-            let itemInfo = products.find(item => item._id === items);
-            for (const item in cartItems[items]) {
-                try {
-                    if (cartItems[items][item] > 0) {
-                        totalAmount = totalAmount + itemInfo.price * cartItems[items][item]
-                    }
-                }
-                catch {
-                    console.log('Lol Nothing is here...Hahaha')
-
+        let TotalAmount = 0;
+        for (const itemId in cartItems) {
+            const itemInfo = products.find(product=>product._id === itemId);
+            for(const size in cartItems[itemId]){
+                if(cartItems[itemId][size]>0){
+                    TotalAmount = TotalAmount + itemInfo.price* cartItems[itemId][size]
                 }
             }
-            return totalAmount;
         }
+        return TotalAmount
     }
-
     const contextValue = {
         products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount, updateQuantiy,getCartAmount
+        cartItems, addToCart, getCartCount, updateQuantiy, getCartAmount
     }
     return (
         <Shopcontex.Provider value={contextValue}>

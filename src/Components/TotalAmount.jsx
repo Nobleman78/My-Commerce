@@ -3,10 +3,6 @@ import { Shopcontex } from '../Context/Contex';
 
 const TotalAmount = () => {
     const { currency, getCartAmount, deliveryFee } = useContext(Shopcontex);
-    
-    const cartAmount = getCartAmount() || 0;
-    const fee = deliveryFee || 0;
-    const totalAmount = cartAmount === 0 ? 0 :cartAmount + fee;
 
     return (
         <div className='w-full'>
@@ -23,13 +19,13 @@ const TotalAmount = () => {
                 <hr />
                 <div className='flex justify-between'>
                     <p>Shipping Fee</p>
-                    <p>{currency}{fee}</p>
+                    <p>{currency}{deliveryFee}</p>
 
                 </div>
                 <hr />
                 <div className='flex justify-between'>
                     <b>Total Amount</b>
-                    <b>{currency}{totalAmount}</b>
+                    <b>{currency}{getCartAmount()===0?0:getCartAmount()+deliveryFee}</b>
 
                 </div>
 
