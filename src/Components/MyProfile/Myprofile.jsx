@@ -15,7 +15,7 @@ const Myprofile = () => {
             <div className='flex flex-col w-1/3 px-5 py-5'>
                 {/* After Login successfully it will get the name from the firebase */}
                 <img src="" alt="" />
-                <h2>Name: Jesmin Chakma  </h2>
+                <h2>{user.slice(0,5)} </h2>
 
             </div>
             <div className='w-2/3 flex flex-col px-5 py-5 gap-3 '>
@@ -24,7 +24,7 @@ const Myprofile = () => {
                 <div className='flex justify-between items-center '>
                     <div className='flex flex-col'>
                         <p>Full Name</p>
-                        {/* <p>{user.slice(0,5)}</p> */}
+                        <p>{user.slice(0,5)}</p>
 
                     </div>
                     <div className='flex flex-col'>
