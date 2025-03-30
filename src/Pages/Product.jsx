@@ -1,15 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Shopcontex } from '../Context/Contex';
 import { assets } from '../assets/assets';
 import RelatedProduct from '../Components/RelatedProduct';
 
 const Product = () => {
     const { productId } = useParams();
-    const { products, currency,addToCart,cartItems } = useContext(Shopcontex);
+    const { products, currency, addToCart, cartItems, user } = useContext(Shopcontex);
     const [productData, setproductData] = useState(false)
     const [size, setSize] = useState()
     const [image, setImage] = useState('')
+    const navigate = useNavigate();
     const fetchData = async () => {
         products.map(product => {
             if (product._id === productId) {
@@ -55,7 +56,7 @@ const Product = () => {
                         <div className='flex gap-2'>
                             {
                                 productData.sizes.map((item, index) => (
-                                    <button onClick={()=>setSize(item)} className={`border py-2 px-4 cursor-pointer`} key={index}>
+                                    <button onClick={() => setSize(item)} className={`border py-2 px-4 cursor-pointer`} key={index}>
                                         {item}
                                     </button>
                                 ))
@@ -63,7 +64,18 @@ const Product = () => {
 
                         </div>
                     </div>
-                    <button onClick={()=>addToCart(productData._id,size)} className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-700'>Add to Cart</button>
+                    <button
+                        onClick={() => {
+                            if (!user) {
+                                navigate('/login');
+                            }
+                          
+                            addToCart(productData._id, size);
+                        }}
+                        className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-700'
+                    >
+                        Add to Cart
+                    </button>
                     <hr className='mt-8 sm:w-4/5' />
                     <div className='text-sm text-gray-500 mt-5 flex flex-col gap-1'>
                         <p>100% original products</p>

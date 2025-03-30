@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { Shopcontex } from '../../Context/Contex';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const Myprofile = () => {
-    return (
+    const {user} = useContext(Shopcontex)
+    console.log(user)
+    const navigate = useNavigate()
+    useEffect(()=>{
+
+    },[])
+    return user? (
         // This is just demo Profile Info ... It will be implement later...
         <div className='flex flex-col md:flex-row border gap-4 '>
             <div className='flex flex-col w-1/3 px-5 py-5'>
@@ -16,12 +24,12 @@ const Myprofile = () => {
                 <div className='flex justify-between items-center '>
                     <div className='flex flex-col'>
                         <p>Full Name</p>
-                        <p>Jesmin Chakma</p>
+                        {/* <p>{user.slice(0,5)}</p> */}
 
                     </div>
                     <div className='flex flex-col'>
                         <p>Email</p>
-                        <p>jesminchakma39@gmail.com</p>
+                        <p>{user}</p>
 
                     </div>
                   
@@ -30,7 +38,7 @@ const Myprofile = () => {
             </div>
           
         </div>
-    );
+    ) : navigate('/login')
 };
 
 export default Myprofile;

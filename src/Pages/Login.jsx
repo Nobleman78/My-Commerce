@@ -1,14 +1,20 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { useRef, useState } from "react";
-import { GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext, useRef, useState } from "react";
+import { GoogleAuthProvider,sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth } from "../Utility/Firebase";
+import { Shopcontex } from "../Context/Contex";
+
 
 const Login = () => {
     const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const emailRef = useRef();
+    const {setLoggedin} = useContext(Shopcontex);
     const provider = new GoogleAuthProvider()
+    const navigate = useNavigate();
+
+  
 
     const handleLogin = (e) => {
         e.preventDefault();
@@ -22,8 +28,6 @@ const Login = () => {
             setErrorMessage('Password Must Be Greater Than Six ')
         }
         
-
-
         //When You want to try login functionaltiy 
         // Email :  jiten23@gmail.com
         // Password : 123456789
@@ -31,8 +35,8 @@ const Login = () => {
             .then(res => {
                 console.log(res.user)
                 setSuccess(true)
-
-
+                setLoggedin(true);
+                navigate('/')
 
             })
             .catch(error => {
@@ -41,32 +45,26 @@ const Login = () => {
                 setSuccess(false)
             })
 
-
-
     }
     const handleGoogleSignIn = () => {
-        
+    
         signInWithPopup(auth, provider)
-
             .then((result) => {
                 console.log(result.user);
                 setSuccess(true)
-
-
             })
             .catch(error => {
                 console.log('Error', error)
                 setSuccess(false);
-
             })
 
     }
+  
     const handleForgetPassword = () => {
         console.log('Get me email password. ', emailRef.current.value);
         const email = emailRef.current.value;
         if (!email) {
             console.log('Please Provide an email address ')
-
         }
         else {
             sendPasswordResetEmail(auth, email)
@@ -76,6 +74,7 @@ const Login = () => {
         }
 
     }
+ 
 
 
     return (

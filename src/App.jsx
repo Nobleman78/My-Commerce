@@ -20,7 +20,7 @@ function App() {
 
 
   return (
-    <div className='px-4 sm:px-[5w] md:px-[7vw] lg:px-[9vw]'>
+    <div className='px-4 sm:px-[5w] md:px-[7vw] lg:px-[9vw] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md'>
       <ToastContainer/>
       <Navbar/>
       <Searchbar/>
@@ -35,6 +35,7 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/orders' element={<Order/>}/>
         <Route path='/collection' element={<Collection/>}/>
+        <Route path='/collection/:input' element={<Collection/>}/>
         <Route path='/my-profile' element={<Myprofile/>}></Route>
       </Routes>
 

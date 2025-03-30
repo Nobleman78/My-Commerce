@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom';
 import { auth } from '../Utility/Firebase';
 
 const Registration = () => {
-    const [success,setSuccess] = useState(false);
+    const [success, setSuccess] = useState(false);
     const handleSubmit = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email,password)
+        console.log(email, password)
         form.reset();
         createUserWithEmailAndPassword(auth, email, password)
             .then(res => {
@@ -23,6 +23,7 @@ const Registration = () => {
             })
 
     }
+
     return (
         <div>
             <form onSubmit={handleSubmit} className='shadow-2xl rounded-xl w-[90%] h-[330px] px-5 py-5 sm:max-w-96 m-auto mt-14 text-gray-800' >
@@ -45,7 +46,7 @@ const Registration = () => {
 
                     </div>
                     {
-                        success &&<p className='text-green-500'>
+                        success && <p className='text-green-500'>
                             Sign up successfull
                         </p>
                     }

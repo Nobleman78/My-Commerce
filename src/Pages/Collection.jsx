@@ -1,15 +1,17 @@
-import React, {useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Shopcontex } from '../Context/Contex';
 import ProductItem from '../Components/Productitem';
+import { useParams } from 'react-router-dom';
 
 
 const Collection = () => {
-    const { products,showSearch,search } = useContext(Shopcontex)
+    const { products, search } = useContext(Shopcontex)
     const [showFilter, setShowFilter] = useState(false)
     const [filterProducts, setFilterProducts] = useState([])
     const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
-    const [sortType,setSortType] = useState([]);
+    const [sortType, setSortType] = useState([]);
+    const { input } = useParams()
 
 
     const toggleCategory = (e) => {
@@ -33,29 +35,32 @@ const Collection = () => {
     }
 
 
-    const applyFilter = ()=>{
+    const applyFilter = () => {
 
         let productsCopy = products.slice();
+        if (input) {
+            productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
+        }
 
-        if(showSearch && search){
-            productsCopy = productsCopy.filter(item=> item.name.toLowerCase().includes(search.toLowerCase()))
+        if (search) {
+            productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
         }
-        if(category.length>0){
-            productsCopy = productsCopy.filter(item=>category.includes(item.category))
+        if (category.length > 0) {
+            productsCopy = productsCopy.filter(item => category.includes(item.category))
         }
-        if(subCategory.length>0){
-            productsCopy = productsCopy.filter(item=>subCategory.includes(item.subCategory))
+        if (subCategory.length > 0) {
+            productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory))
         }
         setFilterProducts(productsCopy)
     }
-    const sortItem=()=>{
+    const sortItem = () => {
         let fpcopy = filterProducts.slice();
-        switch(sortType){
+        switch (sortType) {
             case 'low-high':
-                setFilterProducts(fpcopy.sort((a,b)=>(a.price - b.price)))
+                setFilterProducts(fpcopy.sort((a, b) => (a.price - b.price)))
                 break;
             case 'high-low':
-                setFilterProducts(fpcopy.sort((a,b)=>(b.price - a.price)))
+                setFilterProducts(fpcopy.sort((a, b) => (b.price - a.price)))
                 break;
             default:
                 applyFilter();
@@ -64,18 +69,18 @@ const Collection = () => {
         }
     }
 
-    
-    
-    useEffect(()=>{
+
+
+    useEffect(() => {
         applyFilter();
 
-    },[category,subCategory, search, showSearch])
+    }, [category, subCategory, search,])
 
-    useEffect(()=>{
+    useEffect(() => {
         sortItem()
-    },[sortType,])
+    }, [sortType,])
 
-  
+
     return (
         <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
             {/* Filter Options */}
@@ -135,7 +140,7 @@ const Collection = () => {
                         <p className='w-8 sm:w-11 h-[1px] bg-black'></p>
                     </div>
                     {/* Product Sortlist */}
-                    <select onChange={(e)=>setSortType(e.target.value)} className='border-2 outline-none shadow-none py-2 rounded  text-sm px-2'>
+                    <select onChange={(e) => setSortType(e.target.value)} className='border-2 outline-none shadow-none py-2 rounded  text-sm px-2'>
                         <option value="relavent">Sort By : Relavent</option>
                         <option value="low-high">Sort By : Low To High</option>
                         <option value="high-low">Sort By : High To Low</option>

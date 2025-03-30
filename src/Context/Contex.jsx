@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { products } from '../assets/assets';
 import { toast } from 'react-toastify';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../Utility/Firebase';
 
 export const Shopcontex = createContext();
 
@@ -11,7 +13,32 @@ const Contex = (props) => {
     const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({})
-    console.log(cartItems);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [loggedIn, setLoggedin] = useState(false);
+    // Find the current user
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            console.log('Curent User', currentUser.email)
+            setUser(currentUser.email)
+            setLoading(false);
+        })
+        return () => {
+            unSubscribe();
+        }
+
+    }, [])
+
+    const signOutUser =  () => {
+      
+           signOut(auth); // Firebase sign out
+          // onAuthStateChanged will automatically update state to logged out
+        }
+        
+       
+    
+
 
 
 
@@ -71,10 +98,10 @@ const Contex = (props) => {
     const getCartAmount = () => {
         let TotalAmount = 0;
         for (const itemId in cartItems) {
-            const itemInfo = products.find(product=>product._id === itemId);
-            for(const size in cartItems[itemId]){
-                if(cartItems[itemId][size]>0){
-                    TotalAmount = TotalAmount + itemInfo.price* cartItems[itemId][size]
+            const itemInfo = products.find(product => product._id === itemId);
+            for (const size in cartItems[itemId]) {
+                if (cartItems[itemId][size] > 0) {
+                    TotalAmount = TotalAmount + itemInfo.price * cartItems[itemId][size]
                 }
             }
         }
@@ -82,7 +109,8 @@ const Contex = (props) => {
     }
     const contextValue = {
         products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount, updateQuantiy, getCartAmount
+        cartItems, addToCart, getCartCount, updateQuantiy, getCartAmount, user, loading,
+        loggedIn, setLoggedin,signOutUser,setUser
     }
     return (
         <Shopcontex.Provider value={contextValue}>
