@@ -27,19 +27,19 @@ const About = () => {
 
             </div>
             <div className='my-10 grid grid-cols-1 lg:grid-cols-3 gap-3 '>
-                <div className='flex flex-col gap-4 border px-10 py-20 rounded'>
+                <div className='flex flex-col gap-4  px-10 py-20 rounded shadow-2xl'>
                     <p className='font-semibold '>Quality Assurance</p>
                     <p>We meticulously select and vet each product to ensure it meets our stringent quality standards.</p>
 
 
                 </div>
-                <div className='flex flex-col gap-4 border px-10 py-20 rounded'>
+                <div className='flex flex-col gap-4  px-10 py-20 rounded shadow-2xl'>
                     <p className='font-semibold'>Convenience</p>
                     <p>With our user-friendly interface and hassle-free ordering process, shopping has never been easier.</p>
 
 
                 </div>
-                <div className='flex flex-col gap-4 border px-10 py-20 rounded'>
+                <div className='flex flex-col gap-4  px-10 py-20 rounded shadow-2xl'>
                     <p className='font-semibold'>Exceptional Customer Service</p>
                     <p>Our team of dedicated professionals is here to assist you the way, ensuring your satisfaction is our top priority.</p>
 

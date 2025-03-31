@@ -43,7 +43,7 @@ const Navbar = () => {
             </ul>
             <div className='flex items-center gap-6'>
                 <form onSubmit={handleInput}>
-                    <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Search here' className='border outline-none shadow-none px-3 py-1' />
+                    <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Search here' className='border outline-none shadow-none w-35 lg:w-full px-3 py-1' />
                 </form>
 
                 <div className='group relative'>
