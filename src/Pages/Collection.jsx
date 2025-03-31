@@ -10,8 +10,10 @@ const Collection = () => {
     const [filterProducts, setFilterProducts] = useState([])
     const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
+    const [filterPrice, setFilterPrice] = useState([])
     const [sortType, setSortType] = useState([]);
     const { input } = useParams()
+
 
 
     const toggleCategory = (e) => {
@@ -33,6 +35,15 @@ const Collection = () => {
             setSubCategory(prev => [...prev, e.target.value])
         }
     }
+    const togglePrice = (e) => {
+        if (filterPrice.includes(e.target.value)) {
+            setFilterPrice(prev => prev.filter(item => item !== e.target.value))
+        }
+        else {
+            setFilterPrice(prev => [...prev, e.target.value])
+        }
+
+    }
 
 
     const applyFilter = () => {
@@ -50,6 +61,14 @@ const Collection = () => {
         }
         if (subCategory.length > 0) {
             productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory))
+        }
+        if (filterPrice.length > 0) {
+            productsCopy = productsCopy.filter(item =>{
+                return filterPrice.some(range=>{
+                    const [min,max] = range.split('-').map(Number);
+                    return item.price >=min && item.price <= max;
+                })
+            })
         }
         setFilterProducts(productsCopy)
     }
@@ -74,7 +93,7 @@ const Collection = () => {
     useEffect(() => {
         applyFilter();
 
-    }, [category, subCategory, search,])
+    }, [category, subCategory, search, filterPrice])
 
     useEffect(() => {
         sortItem()
@@ -90,7 +109,7 @@ const Collection = () => {
                 {/* Category Filter */}
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
                     <p className='mb-3 text-sm font-medium'>Categories</p>
-                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+                    <div className='flex flex-col gap-2 text-sm'>
                         <p className='flex  gap-2'>
                             <input type="checkbox" value={'Men'} onChange={toggleCategory} />
                             Men
@@ -112,7 +131,7 @@ const Collection = () => {
                 {/* Type Category */}
                 <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
                     <p className='mb-3 text-sm font-medium'>Type</p>
-                    <div className='flex flex-col gap-2 text-sm font-light text-gray-700'>
+                    <div className='flex flex-col gap-2 text-sm '>
                         <p className='flex  gap-2'>
                             <input type="checkbox" value={'Topwear'} onChange={toggleSubCatagory} />
                             Topwear
@@ -127,6 +146,32 @@ const Collection = () => {
                             <input type="checkbox" value={'Winterwear'} onChange={toggleSubCatagory} />
                             Winterwear
 
+                        </p>
+                    </div>
+                </div>
+                {/* Filter By Price */}
+                <div className={`border border-gray-300 pl-5 py-3 mt-6 ${showFilter ? '' : 'hidden'} sm:block`}>
+                    <p className='mb-3'>Filter By Price</p>
+                    <div className='flex flex-col gap-2 text-sm '>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value="0-10" onChange={togglePrice} />
+                            Price $0 - $10
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value="11-50" onChange={togglePrice} />
+                            Price $11 - $50
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value="51-100" onChange={togglePrice} />
+                            Price $51 - $100
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value="101-200" onChange={togglePrice} />
+                            Price $101 - $200
+                        </p>
+                        <p className='flex gap-2'>
+                            <input type="checkbox" value="201-500" onChange={togglePrice} />
+                            Price $201 - $500
                         </p>
                     </div>
                 </div>

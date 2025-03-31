@@ -20,7 +20,6 @@ const Contex = (props) => {
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            console.log('Curent User', currentUser.email)
             setUser(currentUser.email)
             setLoading(false);
         })

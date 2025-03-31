@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext,useState } from 'react';
 import { assets } from '../assets/assets';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/logo.png'
@@ -7,7 +7,6 @@ import { Shopcontex } from '../Context/Contex';
 const Navbar = () => {
     const navigate = useNavigate();
     const { search, setSearch, user } = useContext(Shopcontex)
-    console.log(user);
     const [visible, setVisible] = useState(false);
     const [menu, setMenu] = useState('menu')
     const { getCartCount, signOutUser, setUser } = useContext(Shopcontex)

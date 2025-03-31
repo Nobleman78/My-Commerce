@@ -1,6 +1,6 @@
 import React from 'react';
 import Newsletter from '../Components/Newsletter';
-import { assets } from '../assets/assets';
+import aboutImage from '../assets/about.avif'
 
 const About = () => {
     return (
@@ -10,9 +10,9 @@ const About = () => {
                 <p className='w-8 sm:w-11 h-[1px] bg-black'></p>
             </div>
             <div className='flex flex-col lg:flex-row  sm:gap-10'>
-                <img className=' lg:w-110  ' src={assets.about_img} alt="" />
+                <img className=' lg:w-120  ' src={aboutImage} alt="" />
                 <div className='my-10 text-justify flex-col lg:w-1/2 '>
-                    <p>Forever was born out of a passion for innovation and a desire to revolutionize the way people shop online. Our journey began with a simple idea: to provide a platform where customers can easily discover, explore, and purchase a wide range of products from the comfort of their homes.
+                    <p>Ajeeb was born out of a passion for innovation and a desire to revolutionize the way people shop online. Our journey began with a simple idea: to provide a platform where customers can easily discover, explore, and purchase a wide range of products from the comfort of their homes.
                     <br /><br /> Since our inception, we've worked tirelessly to curate a diverse selection of high-quality products that cater to every taste and preference. From fashion and beauty to electronics and home essentials, we offer an extensive collection sourced from trusted brands and suppliers.</p>
                     <p className='my-4 text-xl font-semibold'>Our Mission</p>    
                     <p>Our mission at Forever is to empower customers with choice, convenience, and confidence. We're dedicated to providing a seamless shopping experience that exceeds expectations, from browsing and ordering to delivery and beyond.</p>
