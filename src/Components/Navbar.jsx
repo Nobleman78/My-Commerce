@@ -10,7 +10,8 @@ const Navbar = () => {
     console.log(user);
     const [visible, setVisible] = useState(false);
     const [menu, setMenu] = useState('menu')
-    const { getCartCount, signOutUser,setUser } = useContext(Shopcontex)
+    const { getCartCount, signOutUser, setUser } = useContext(Shopcontex)
+    const [showProfile, setShowFile] = useState(false);
     const handleInput = (e) => {
         e.preventDefault();
         navigate('/collection/' + search)
@@ -43,28 +44,30 @@ const Navbar = () => {
                 <form onSubmit={handleInput}>
                     <input onChange={(e) => setSearch(e.target.value)} value={search} type="text" placeholder='Search here' className='border outline-none shadow-none px-3 py-1' />
                 </form>
+
                 <div className='group relative'>
                     {
-                        user ? <img className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
+                        user ? <img onClick={() => setShowFile(!showProfile)} className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
                             : <NavLink to='/login' className='flex flex-col items-center gap-1' >
                                 <p>LOGIN</p>
                                 <hr className='w-2/4 border-none h-[1.5px] hidden bg-gray-700' />
                             </NavLink>
                     }
+
+
+
                     {
-                        <img className='w-5 cursor-pointer' src={assets.profile_icon} alt="" /> ?
-                            user ?
-                                <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
-                                    <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                                        <p onClick={() => navigate('/my-profile')} className='cursor-pointer hover:text-black'>My Profile</p>
-                                        <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
-                                      
-                                            <p onClick={()=>{setUser(null);signOutUser()}} className='cursor-pointer hover:text-black'>Logout</p>
-                                           
-                                     
-                                    </div>
-                                </div> : '' : ''
+                        showProfile && <div className=' absolute dropdown-menu right-0 pt-4'>
+                            <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
+                                <p onClick={() => navigate('/my-profile')} className='cursor-pointer hover:text-black'>My Profile</p>
+                                <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
+                                <p onClick={() => { setUser(null); signOutUser() }} className='cursor-pointer hover:text-black'>Logout</p>
+
+
+                            </div>
+                        </div>
                     }
+
 
                 </div>
                 <Link to='/cart' className='relative'>
