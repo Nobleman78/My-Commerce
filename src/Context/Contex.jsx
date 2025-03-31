@@ -10,7 +10,6 @@ const Contex = (props) => {
 
     const currency = `$`;
     const deliveryFee = 10;
-    const [search, setSearch] = useState('');
     const [showSearch, setShowSearch] = useState(false);
     const [cartItems, setCartItems] = useState({})
     const [user, setUser] = useState(null);
@@ -29,17 +28,9 @@ const Contex = (props) => {
 
     }, [])
 
-    const signOutUser =  () => {
-      
-           signOut(auth); // Firebase sign out
-          // onAuthStateChanged will automatically update state to logged out
-        }
-        
-       
-    
-
-
-
+    const signOutUser = () => {
+        signOut(auth);
+    }
 
     // Add to cart click Event handler
     const addToCart = async (itemId, size) => {
@@ -107,9 +98,9 @@ const Contex = (props) => {
         return TotalAmount
     }
     const contextValue = {
-        products, currency, deliveryFee, search, setSearch, showSearch, setShowSearch,
+        products, currency, deliveryFee, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantiy, getCartAmount, user, loading,
-        loggedIn, setLoggedin,signOutUser,setUser
+        loggedIn, setLoggedin, signOutUser, setUser
     }
     return (
         <Shopcontex.Provider value={contextValue}>

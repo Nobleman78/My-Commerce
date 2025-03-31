@@ -6,16 +6,17 @@ import { Shopcontex } from '../Context/Contex';
 
 const Navbar = () => {
     const navigate = useNavigate();
-    const { search, setSearch, user } = useContext(Shopcontex)
+    const {user } = useContext(Shopcontex)
     const [visible, setVisible] = useState(false);
     const [menu, setMenu] = useState('menu')
     const { getCartCount, signOutUser, setUser } = useContext(Shopcontex)
     const [showProfile, setShowFile] = useState(false);
     const [isOpen, setIsopen] = useState(false);
+    const [input, setInput ] = useState('')
     const handleInput = (e) => {
         e.preventDefault();
-        navigate('/collection/' + search)
-        setSearch('')
+        navigate('/collection/' + input)
+        setInput('')
     }
 
     return (
@@ -42,7 +43,7 @@ const Navbar = () => {
             </ul>
             <div className='flex items-center gap-6'>
                 <form onSubmit={handleInput}>
-                    <input onChange={(e) => setSearch(e.target.value)} value={search} type="text" placeholder='Search here' className='border outline-none shadow-none px-3 py-1' />
+                    <input onChange={(e) => setInput(e.target.value)} value={input} type="text" placeholder='Search here' className='border outline-none shadow-none px-3 py-1' />
                 </form>
 
                 <div className='group relative'>

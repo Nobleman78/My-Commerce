@@ -3,18 +3,15 @@ import { Shopcontex } from '../Context/Contex';
 import ProductItem from '../Components/Productitem';
 import { useParams } from 'react-router-dom';
 
-
 const Collection = () => {
-    const { products, search } = useContext(Shopcontex)
+    const { products } = useContext(Shopcontex)
     const [showFilter, setShowFilter] = useState(false)
     const [filterProducts, setFilterProducts] = useState([])
     const [category, setCategory] = useState([])
     const [subCategory, setSubCategory] = useState([])
     const [filterPrice, setFilterPrice] = useState([])
     const [sortType, setSortType] = useState([]);
-    const { input } = useParams()
-
-
+    const {input} = useParams();
 
     const toggleCategory = (e) => {
         if (category.includes(e.target.value)) {
@@ -45,16 +42,12 @@ const Collection = () => {
 
     }
 
-
     const applyFilter = () => {
 
         let productsCopy = products.slice();
+    
         if (input) {
             productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(input.toLowerCase()))
-        }
-
-        if (search) {
-            productsCopy = productsCopy.filter(item => item.name.toLowerCase().includes(search.toLowerCase()))
         }
         if (category.length > 0) {
             productsCopy = productsCopy.filter(item => category.includes(item.category))
@@ -93,7 +86,7 @@ const Collection = () => {
     useEffect(() => {
         applyFilter();
 
-    }, [category, subCategory, search, filterPrice])
+    }, [category, subCategory, input, filterPrice])
 
     useEffect(() => {
         sortItem()
@@ -176,6 +169,7 @@ const Collection = () => {
                     </div>
                 </div>
             </div>
+            
             {/* Right side  */}
 
             <div className='flex-1 sm:my-2 my-3'>

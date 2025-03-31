@@ -17,29 +17,27 @@ import { ToastContainer } from 'react-toastify';
 import Myprofile from './Components/MyProfile/Myprofile'
 
 function App() {
-
-
   return (
     <div className='px-4 sm:px-[5w] md:px-[7vw] lg:px-[9vw] bg-white/80 dark:bg-gray-900/90 backdrop-blur-md'>
-      <ToastContainer/>
-      <Navbar/>
-      <Searchbar/>
+      <ToastContainer />
+      <Navbar />
+      <Searchbar />
       <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/about' element={<About/>} />
-        <Route path='/contact' element={<Contact/>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/registration' element={<Registration/>} />
-        <Route path='/product/:productId' element={<Product/>} />
-        <Route path='/place-order' element={<Placeorder/>} />
-        <Route path='/cart' element={<Cart/>} />
-        <Route path='/orders' element={<Order/>}/>
-        <Route path='/collection' element={<Collection/>}/>
-        <Route path='/collection/:input' element={<Collection/>}/>
-        <Route path='/my-profile' element={<Myprofile/>}></Route>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/registration' element={<Registration />} />
+        <Route path='/product/:productId' element={<Product />} />
+        <Route path='/place-order' element={<Placeorder />} />
+        <Route path='/cart' element={<Cart />} />
+        <Route path='/orders' element={<Order />} />
+        <Route path='/collection' element={<Collection />} />
+        <Route path='/collection/:input' element={<Collection />} />
+        <Route path='/my-profile' element={<Myprofile />}></Route>
       </Routes>
 
-    <Footer/>
+      <Footer />
     </div>
   )
 }
