@@ -138,6 +138,7 @@ const Placeorder = () => {
                             <button onClick={() => isFormValid() && navigate('/orders')} className={`bg-black text-white px-16 py-3 text-sm ${isFormValid() ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}
                                 disabled={!isFormValid()}>
                                 Place Order
+
                             </button>
                         </div>
                     </div>

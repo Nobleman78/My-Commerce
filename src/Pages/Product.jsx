@@ -1,21 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import { Shopcontex } from '../Context/Contex';
 import { assets } from '../assets/assets';
 import RelatedProduct from '../Components/RelatedProduct';
 
 const Product = () => {
     const { productId } = useParams();
-    const { products, currency, addToCart, cartItems, user } = useContext(Shopcontex);
+    const { products, currency, addToCart} = useContext(Shopcontex);
     const [productData, setproductData] = useState(false)
     const [size, setSize] = useState()
-    const [image, setImage] = useState('')
-    const navigate = useNavigate();
+    const [firstIndeximage, setFirstIndexImage] = useState('')
+    
     const fetchData = async () => {
         products.map(product => {
             if (product._id === productId) {
                 setproductData(product)
-                setImage(product.image[0])
+                setFirstIndexImage(product.image[0])
                 return null;
             }
         })
@@ -30,13 +30,13 @@ const Product = () => {
                 <div className='flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full'>
                     {
                         productData.image.map((image, index) => (
-                            <img onClick={() => setImage(image)} src={image} key={index} className='w-[24%] sm:w-full sm:mb-3 flex shrink-0 cursor-pointer' alt="" />
+                            <img onClick={() => setFirstIndexImage(image)} src={image} key={index} className='w-[24%] sm:w-full sm:mb-3 flex shrink-0 cursor-pointer' alt="" />
                         ))
                     }
 
                 </div>
                 <div className='w-full sm:w-[30%]'>
-                    <img className='w-full h-auto' src={image} alt="" />
+                    <img className='w-full h-auto' src={firstIndeximage} alt="" />
                 </div>
                 {/* Product Information */}
                 <div className='flex-1'>
@@ -65,15 +65,7 @@ const Product = () => {
                         </div>
                     </div>
                     <button
-                        onClick={() => {
-                            if (!user) {
-                                navigate('/login');
-                            }
-                          
-                            addToCart(productData._id, size);
-                        }}
-                        className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-700'
-                    >
+                        onClick={() => { addToCart(productData._id, size)}} className='bg-black cursor-pointer text-white px-8 py-3 text-sm active:bg-gray-700'>
                         Add to Cart
                     </button>
                     <hr className='mt-8 sm:w-4/5' />

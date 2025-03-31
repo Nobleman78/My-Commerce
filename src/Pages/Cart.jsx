@@ -5,10 +5,10 @@ import TotalAmount from '../Components/TotalAmount';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-    const { currency, cartItems, products,updateQuantiy } = useContext(Shopcontex);
+    const { currency, cartItems, products, updateQuantiy, user } = useContext(Shopcontex);
     const [cartData, setCartData] = useState([]);
-    const naviagte = useNavigate();
-   
+    const navigate = useNavigate();
+
     useEffect(() => {
         const tempData = [];
         for (const items in cartItems) {
@@ -47,13 +47,11 @@ const Cart = () => {
                                         <div className='flex items-center gap-5 mt-2'>
                                             <p>{currency}{productData.price}</p>
                                             <p className='border px-2 sm:px-3 sm:py-1 bg-slate-50'>{item.size}</p>
-
-
                                         </div>
                                     </div>
                                 </div>
-                                <input onChange={(e)=>e.target.value === '' || e.target.value === '0'?null:updateQuantiy(item._id,item.size, Number(e.target.value))} type="number" className= ' border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' defaultValue={item.quantity} />
-                                <img onClick={()=>updateQuantiy(item._id, item.size,0)} className='w-4 mr-4 sm:w-5 cursor-pointer' src={assets.bin_icon} alt="" />
+                                <input onChange={(e) => e.target.value === '' || e.target.value === '0' ? null : updateQuantiy(item._id, item.size, Number(e.target.value))} type="number" className=' border max-w-10 sm:max-w-20 px-1 sm:px-2 py-1' defaultValue={item.quantity} />
+                                <img onClick={() => updateQuantiy(item._id, item.size, 0)} className='w-4 mr-4 sm:w-5 cursor-pointer' src={assets.bin_icon} alt="" />
 
                             </div>
                         )
@@ -62,17 +60,29 @@ const Cart = () => {
             </div>
             <div className='flex justify-end my-20'>
                 <div className='w-full sm:w-[450px]'>
-                    <TotalAmount/>
+                    <TotalAmount />
                     <div className='w-full text-end'>
-                        <button onClick={()=>naviagte('/place-order')} className='bg-black cursor-pointer text-white text-sm my-8 px-8 py-3'>Proceed To Checkout</button>
+                        <button
+                            onClick={() => {
+                                if (!user) {
+                                    navigate('/login',
+                                        {
+                                            replace: true,
+                                            state: { from: '/cart' },
 
+                                        })
+                                    return;
+                                }
+
+                                navigate('/place-order');
+                            }}
+                            className='bg-black cursor-pointer text-white text-sm my-8 px-8 py-3' >
+
+                            Proceed To Checkout
+                        </button>
                     </div>
-
                 </div>
-
             </div>
-           
-
         </div>
     );
 };
