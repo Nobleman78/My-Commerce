@@ -9,11 +9,9 @@ const Cart = () => {
     const [cartData, setCartData] = useState([]);
     const naviagte = useNavigate();
    
-
     useEffect(() => {
         const tempData = [];
         for (const items in cartItems) {
-            
             for (const item in cartItems[items]) {
                 if (cartItems[items][item] > 0) {
                     tempData.push({
