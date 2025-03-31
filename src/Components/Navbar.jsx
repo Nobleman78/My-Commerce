@@ -12,6 +12,7 @@ const Navbar = () => {
     const [menu, setMenu] = useState('menu')
     const { getCartCount, signOutUser, setUser } = useContext(Shopcontex)
     const [showProfile, setShowFile] = useState(false);
+    const [isOpen, setIsopen] = useState(false);
     const handleInput = (e) => {
         e.preventDefault();
         navigate('/collection/' + search)
@@ -47,7 +48,7 @@ const Navbar = () => {
 
                 <div className='group relative'>
                     {
-                        user ? <img onClick={() => setShowFile(!showProfile)} className='w-5 cursor-pointer' src={assets.profile_icon} alt="" />
+                        user ? <img onClick={() => {setShowFile(!showProfile);setIsopen(true)}} className='w-5 cursor-pointer ' src={assets.profile_icon} alt="" />
                             : <NavLink to='/login' className='flex flex-col items-center gap-1' >
                                 <p>LOGIN</p>
                                 <hr className='w-2/4 border-none h-[1.5px] hidden bg-gray-700' />
@@ -57,11 +58,11 @@ const Navbar = () => {
 
 
                     {
-                        showProfile && <div className=' absolute dropdown-menu right-0 pt-4'>
+                        showProfile && isOpen &&<div className=' absolute dropdown-menu right-0 pt-4'>
                             <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
-                                <p onClick={() => navigate('/my-profile')} className='cursor-pointer hover:text-black'>My Profile</p>
-                                <p onClick={() => navigate('/orders')} className='cursor-pointer hover:text-black'>Orders</p>
-                                <p onClick={() => { setUser(null); signOutUser() }} className='cursor-pointer hover:text-black'>Logout</p>
+                                <p onClick={() => {navigate('/my-profile');setIsopen(false)}} className='cursor-pointer hover:text-black'>My Profile</p>
+                                <p onClick={() => {navigate('/orders');setIsopen(false)}} className='cursor-pointer hover:text-black'>Orders</p>
+                                <p onClick={() => { setUser(null); signOutUser();setIsopen(false) }} className='cursor-pointer hover:text-black'>Logout</p>
 
 
                             </div>
