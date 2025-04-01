@@ -35,7 +35,7 @@ const Cart = () => {
                 <p className='w-8 sm:w-11 h-[1px] bg-black'></p>
 
             </div>
-            <p className='font-semibold mt-2'><span className='text-green-600'>{getCartCount()}</span> {getCartCount()<1?'Product':'Products'} in the cart.</p>
+            <p className='font-semibold mt-2'><span className='text-green-600'>{getCartCount()}</span> {getCartCount()<2?'Product':'Products'} in the cart.</p>
             <div>
                 {
                     cartData.map((item, index) => {
