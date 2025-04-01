@@ -45,6 +45,7 @@ const Order = () => {
                                                 <p className='border px-2 sm:px-3 sm:py-1 text-lg text-white bg-blue-600'>Size : {item.size}</p>
                                                 <p className='border py-1 px-2 bg-blue-600 text-white'>Method : <span className='text-lg'> {method}</span> </p>
                                             </div>
+                                            
                                         </div>
                                     </div>
                             

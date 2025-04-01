@@ -76,6 +76,7 @@ const Cart = () => {
                                 }
 
                                 navigate('/place-order');
+                                
                             }}
                             className={`${getCartCount()===0 ?'cursor-not-allowed bg-gray-400  text-white text-sm my-8 px-8 py-3':'bg-black cursor-pointer text-white text-sm my-8 px-8 py-3'}`} disabled={getCartCount() === 0} >
                         
