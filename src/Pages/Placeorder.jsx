@@ -9,7 +9,7 @@ import { Shopcontex } from '../Context/Contex';
 
 const Placeorder = () => {
     const navigate = useNavigate();
-    const {method, setMethod} = useContext(Shopcontex);
+    const {method, setMethod,handleOrder} = useContext(Shopcontex);
     const [formData, setFormData] = useState({
         firstName: '',
         secondName: '',
@@ -136,7 +136,7 @@ const Placeorder = () => {
                             </div>
                         </div>
                         <div className='w-full text-end mt-8'>
-                            <button onClick={() => isFormValid() && navigate('/orders')} className={`bg-black text-white px-16 py-3 text-sm ${isFormValid() ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}
+                            <button onClick={() => {isFormValid() && navigate('/orders');handleOrder()}} className={`bg-black text-white px-16 py-3 text-sm ${isFormValid() ? 'cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}
                                 disabled={!isFormValid()}>
                                 Place Order
 

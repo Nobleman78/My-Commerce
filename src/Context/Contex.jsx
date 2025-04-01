@@ -18,6 +18,8 @@ const Contex = (props) => {
     const [loading, setLoading] = useState(true);
     const [loggedIn, setLoggedin] = useState(false);
     const [method, setMethod] = useState(null);
+    const [cartCount, setCartCount] = useState(0);
+    console.log(cartCount);
 
 
     // Add to cart click Event handler
@@ -59,25 +61,34 @@ const Contex = (props) => {
     const signOutUser = () => {
         signOut(auth);
     }
-
+    
+    
+    const handleOrder = () =>{
+        /*This is optinal Section if i want 0 cart count then could be excute*/
+        setCartItems({})
+        
+        
+    }
+    
     const getCartCount = () => {
+    
         let totalCount = 0;
-        for (const items in cartItems) {
-            for (const item in cartItems[items]) {
+        for (const id in cartItems) {
+            for (const size in cartItems[id]) {
                 try {
-                    if (cartItems[items][item] > 0) {
-                        totalCount += cartItems[items][item]
+                    if (cartItems[id][size] > 0) {
+                        totalCount += cartItems[id][size]
 
                     }
-
+                    
                 } catch {
                     console.log('Nothing is here ...')
 
                 }
             }
         }
-
-        return totalCount;
+        setCartCount(totalCount)
+        return totalCount
 
     }
 
@@ -102,8 +113,8 @@ const Contex = (props) => {
     }
     const contextValue = {
         products, currency, deliveryFee, showSearch, setShowSearch,
-        cartItems, addToCart, getCartCount, updateQuantiy, getCartAmount, user, loading,
-        loggedIn, setLoggedin, signOutUser, setUser,method, setMethod
+        cartItems, addToCart, cartCount, setCartCount, updateQuantiy, getCartAmount, user, loading,
+        loggedIn, setLoggedin, signOutUser, setUser, method, setMethod, getCartCount,handleOrder
     }
     return (
         <Shopcontex.Provider value={contextValue}>

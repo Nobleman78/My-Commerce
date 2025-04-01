@@ -5,7 +5,7 @@ import TotalAmount from '../Components/TotalAmount';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-    const { currency, cartItems, products, updateQuantiy, user,getCartCount } = useContext(Shopcontex);
+    const { currency, cartItems, products, updateQuantiy, user, getCartCount } = useContext(Shopcontex);
     const [cartData, setCartData] = useState([])
     const navigate = useNavigate();
 
@@ -35,6 +35,7 @@ const Cart = () => {
                 <p className='w-8 sm:w-11 h-[1px] bg-black'></p>
 
             </div>
+            <p className='font-semibold mt-2'><span className='text-green-600'>{getCartCount()}</span> {getCartCount()<1?'Product':'Products'} in the cart.</p>
             <div>
                 {
                     cartData.map((item, index) => {
@@ -73,13 +74,15 @@ const Cart = () => {
 
                                         })
                                     return;
-                                }
+                                };
+
 
                                 navigate('/place-order');
-                                
+
+
                             }}
-                            className={`${getCartCount()===0 ?'cursor-not-allowed bg-gray-400  text-white text-sm my-8 px-8 py-3':'bg-black cursor-pointer text-white text-sm my-8 px-8 py-3'}`} disabled={getCartCount() === 0} >
-                        
+                            className={`${getCartCount() === 0 ? 'cursor-not-allowed bg-gray-400  text-white text-sm my-8 px-8 py-3' : 'bg-black cursor-pointer text-white text-sm my-8 px-8 py-3'}`} disabled={getCartCount() === 0} >
+
                             Proceed To Checkout
                         </button>
                     </div>
