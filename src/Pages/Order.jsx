@@ -1,8 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Shopcontex } from '../Context/Contex';
 
 const Order = () => {
-    const { products, currency } = useContext(Shopcontex);
+    const { products, currency, cartItems,method } = useContext(Shopcontex);
+    const [cartData, setCartData] = useState([])
+
+    useEffect(() => {
+        const tempData = [];
+        for (const items in cartItems) {
+            for (const item in cartItems[items]) {
+                if (cartItems[items][item] > 0) {
+                    tempData.push({
+                        _id: items,
+                        size: item,
+                        quantity: cartItems[items][item]
+                    })
+                }
+            }
+        }
+        setCartData(tempData)
+
+    }, [cartItems])
+
     return (
         <div className='border-t pt-16'>
             <div className='text-2xl flex items-center gap-2'>
@@ -11,33 +30,29 @@ const Order = () => {
 
             </div>
             <div>
-                {
-                    products.slice(0, 4).map((item, index) => (
-                        <div key={index} className='py-4 border-t border-t-gray-300 border-b border-b-gray-300  text-gray-700 flex flex-col md:flex-row md:justify-between md:items-center gap-4'>
-                            <div className='flex items-start gap-6  text-sm '>
-                                <img className='w-16 sm:w-20' src={item.image[0]} alt="product-image" />
-                                <div>
-                                    <p className='font-semibold text-lg'>{item.name}</p>
-                                    <div className='flex gap-2 items-center font-semibold '>
-                                        <p>{currency}{item.price}</p>
-                                        <p >Quantity : {1}</p>
-                                        <p>Size : {'M'}</p>
-
+                <div>
+                    {
+                        cartData.map((item, index) => {
+                            const productData = products.find(product => product._id === item._id);
+                            return (
+                                <div key={index} className='border-t py-7 my-2 border-b text-gray-600 grid grid-cols-[4fr_2fr_0.5fr] sm:grid-cols-[4fr_2fr_0.5fr] items-center gap-4'>
+                                    <div className='flex items-start gap-6'>
+                                        <img className='w-16 sm:w-20' src={productData.image[0]} alt="" />
+                                        <div>
+                                            <p className='text-sm sm:text-lg font-medium'>{productData.name}</p>
+                                            <div className='flex items-center gap-5 mt-2'>
+                                                <p>{currency}{productData.price}</p>
+                                                <p className='border px-2 sm:px-3 sm:py-1 text-lg text-white bg-blue-600'>Size : {item.size}</p>
+                                                <p className='border py-1 px-2 bg-blue-600 text-white'>Method : <span className='text-lg'> {method}</span> </p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <p>Date : <span className='text-gray-600 text-sm'> {' Tue Mar 18 2025'}</span> </p>
-                                    <p>Payment : <span className='text-gray-600 text-sm'>{'COD'}</span> </p>
+                            
                                 </div>
-                            </div>
-                            <div className='md:w-1/2 flex justify-between'>
-                                <div className='flex items-center gap-2'>
-                                    <p className='min-w-2 h-2 rounded-full bg-green-500'></p>
-                                    <p>Ready to ship</p>
-                                </div>
-                                <button className='border border-gray-300 cursor-pointer px-4 py-2 text-sm  rounded '>Track Order</button>
-                            </div>
-                        </div>
-                    ))
-                }
+                            )
+                        })
+                    }
+                </div>
             </div>
         </div>
     );

@@ -3,6 +3,8 @@ import { products } from '../assets/assets';
 import { toast } from 'react-toastify';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../Utility/Firebase';
+import { addToLocalStorage } from '../Utility/Localstorage';
+
 
 export const Shopcontex = createContext();
 
@@ -15,22 +17,8 @@ const Contex = (props) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [loggedIn, setLoggedin] = useState(false);
-    // Find the current user
+    const [method, setMethod] = useState(null);
 
-    useEffect(() => {
-        const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            setUser(currentUser.email)
-            setLoading(false);
-        })
-        return () => {
-            unSubscribe();
-        }
-
-    }, [])
-
-    const signOutUser = () => {
-        signOut(auth);
-    }
 
     // Add to cart click Event handler
     const addToCart = async (itemId, size) => {
@@ -52,10 +40,25 @@ const Contex = (props) => {
             cartData[itemId][size] = 1;
         }
         setCartItems(cartData)
-
-
+        addToLocalStorage(cartData)
     }
 
+    // Find the current user
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
+            setUser(currentUser.email)
+            setLoading(false);
+        })
+        return () => {
+            unSubscribe();
+        }
+
+    }, [])
+
+    //Sign Out User
+    const signOutUser = () => {
+        signOut(auth);
+    }
 
     const getCartCount = () => {
         let totalCount = 0;
@@ -100,7 +103,7 @@ const Contex = (props) => {
     const contextValue = {
         products, currency, deliveryFee, showSearch, setShowSearch,
         cartItems, addToCart, getCartCount, updateQuantiy, getCartAmount, user, loading,
-        loggedIn, setLoggedin, signOutUser, setUser
+        loggedIn, setLoggedin, signOutUser, setUser,method, setMethod
     }
     return (
         <Shopcontex.Provider value={contextValue}>

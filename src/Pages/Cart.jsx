@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Shopcontex } from '../Context/Contex';
 import { assets } from '../assets/assets';
 import TotalAmount from '../Components/TotalAmount';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-    const { currency, cartItems, products, updateQuantiy, user } = useContext(Shopcontex);
-    const [cartData, setCartData] = useState([]);
+    const { currency, cartItems, products, updateQuantiy, user,getCartCount } = useContext(Shopcontex);
+    const [cartData, setCartData] = useState([])
     const navigate = useNavigate();
+
 
     useEffect(() => {
         const tempData = [];
@@ -76,8 +77,8 @@ const Cart = () => {
 
                                 navigate('/place-order');
                             }}
-                            className='bg-black cursor-pointer text-white text-sm my-8 px-8 py-3' >
-
+                            className={`${getCartCount()===0 ?'cursor-not-allowed bg-gray-400  text-white text-sm my-8 px-8 py-3':'bg-black cursor-pointer text-white text-sm my-8 px-8 py-3'}`} disabled={getCartCount() === 0} >
+                        
                             Proceed To Checkout
                         </button>
                     </div>

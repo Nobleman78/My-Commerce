@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import TotalAmount from '../Components/TotalAmount';
 import { assets } from '../assets/assets';
 import visaCard from '../../src/assets/visa.webp';
 import masterCard from '../../src/assets/MASTER.png';
 import { useNavigate } from 'react-router-dom';
 import { FaCheck } from 'react-icons/fa';
+import { Shopcontex } from '../Context/Contex';
 
 const Placeorder = () => {
     const navigate = useNavigate();
-    const [method, setMethod] = useState(null);
+    const {method, setMethod} = useContext(Shopcontex);
     const [formData, setFormData] = useState({
         firstName: '',
         secondName: '',
